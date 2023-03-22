@@ -14,7 +14,7 @@
 - (void)pluginInitialize
 {
     [AppCenterShared configureWithSettings: self.commandDelegate.settings];
-    [MSAppCenter startService:[MSAnalytics class]];
+    [MSACAppCenter startService:[MSACAnalytics class]];
 
     BOOL enableInJs = [self.commandDelegate.settings
                        cordovaBoolSettingForKey:@"APPCENTER_ANALYTICS_ENABLE_IN_JS"
@@ -23,16 +23,16 @@
     if (enableInJs) {
         // Avoid starting an analytics session.
         // Note that we don't call this if startEnabled is true, because
-        // that causes a session to try and start before MSAnalytics is started.
-        [MSAnalytics setEnabled:false];
+        // that causes a session to try and start before MSACAnalytics is started.
+        [MSACAnalytics setEnabled:false];
     }
 
-    //[MSAnalytics setAutoPageTrackingEnabled:false]; // TODO: once the underlying SDK supports this, make sure to call this
+    //[MSACAnalytics setAutoPageTrackingEnabled:false]; // TODO: once the underlying SDK supports this, make sure to call this
 }
 
 - (void)isEnabled:(CDVInvokedUrlCommand *)command
 {
-    BOOL isEnabled = [MSAnalytics isEnabled];
+    BOOL isEnabled = [MSACAnalytics isEnabled];
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                   messageAsBool:isEnabled];
 
@@ -43,7 +43,7 @@
 - (void)setEnabled:(CDVInvokedUrlCommand *)command
 {
     BOOL shouldEnable = [[command argumentAtIndex:0] boolValue];
-    [MSAnalytics setEnabled:shouldEnable];
+    [MSACAnalytics setEnabled:shouldEnable];
 
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:result
@@ -55,7 +55,7 @@
     NSString* eventName = [command argumentAtIndex:0 withDefault:nil andClass:[NSString class]];
     NSDictionary* properties = [command argumentAtIndex:1];
 
-    [MSAnalytics trackEvent:eventName withProperties:properties];
+    [MSACAnalytics trackEvent:eventName withProperties:properties];
 
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:result
@@ -69,7 +69,7 @@
     NSString pageName = [command argumentAtIndex:0];
     NSDictionary properties = [command argumentAtIndex:1];
 
-    [MSAnalytics trackPage:pageName withProperties:properties];
+    [MSACAnalytics trackPage:pageName withProperties:properties];
 
     [self.commandDelegate sendPluginResult:CDVCommandStatus_OK
                                 callbackId:command.callbackId];

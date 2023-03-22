@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-appcenter-analytics"
-        version="0.5.1"
+        version="0.5.2"
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -19,7 +19,7 @@
     <engine name="cordova" version=">=6.4.0" />
     <engine name="cordova-ios" version=">=4.3.0" />
 
-    <!-- <dependency id="cordova-plugin-appcenter-shared" version="0.5.1"/> -->
+    <dependency id="cordova-plugin-appcenter-shared" version="0.5.2"/>
 
     <js-module name="Analytics" src="www/Analytics.js">
         <clobbers target="AppCenter.Analytics" />
@@ -39,7 +39,8 @@
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
-        <framework src="com.microsoft.appcenter:appcenter-analytics:2.4.1" />
+        <!-- https://mvnrepository.com/artifact/com.microsoft.appcenter/appcenter-analytics -->
+        <framework src="com.microsoft.appcenter:appcenter-analytics:5.0.0" />
 
         <source-file src="src/android/AppCenterAnalyticsPlugin.java"
                      target-dir="src/com/microsoft/azure/mobile/cordova" />
@@ -65,8 +66,9 @@
                 <source url="https://cdn.cocoapods.org/"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="AppCenter" spec="~> 2.5.0" />
-                <pod name="AppCenter/Analytics" spec="~> 2.5.0" />
+                <!-- https://cocoapods.org/pods/AppCenter -->
+                <pod name="AppCenter" spec="~> 5.0.2" />
+                <pod name="AppCenter/Analytics" spec="~> 5.0.2" />
             </pods>
         </podspec>
     </platform>
